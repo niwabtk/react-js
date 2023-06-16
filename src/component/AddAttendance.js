@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const AddAttendance = ({ onAdd }) => {
+const AddAttendance = ({ addAttendance }) => {
   const [nama, setNama] = useState('');
   const [kelas, setKelas] = useState('');
   const [tanggal, setTanggal] = useState('');
@@ -9,7 +9,9 @@ const AddAttendance = ({ onAdd }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newAttendance = { nama, kelas, tanggal, status };
-    onAdd(newAttendance);
+    addAttendance(newAttendance);
+
+
     setNama('');
     setKelas('');
     setTanggal('');
@@ -20,24 +22,24 @@ const AddAttendance = ({ onAdd }) => {
     <div>
       <h2 className='text-center'>Tambah Data Absensi</h2>
       <form onSubmit={handleSubmit}>
-        <label className=''>
+        <label htmlFor="nama">
           Nama:
-          <input className='form-control' type="text" value={nama} onChange={(e) => setNama(e.target.value)} />
+          <input id="nama" className='form-control' type="text" value={nama} onChange={(e) => setNama(e.target.value)} />
         </label>
         <br />
-        <label>
+        <label htmlFor="kelas">
           Kelas:
-          <input type="text" value={kelas} onChange={(e) => setKelas(e.target.value)} />
+          <input id="kelas" className='form-control' type="text" value={kelas} onChange={(e) => setKelas(e.target.value)} />
         </label>
         <br />
-        <label>
+        <label htmlFor="tanggal">
           Tanggal:
-          <input type="date" value={tanggal} onChange={(e) => setTanggal(e.target.value)} />
+          <input id="tanggal" className='form-control' type="date" value={tanggal} onChange={(e) => setTanggal(e.target.value)} />
         </label>
         <br />
-        <label>
+        <label htmlFor="status">
           Status:
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <select id="status" className='form-control' value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="">-- Pilih Status --</option>
             <option value="Hadir">Hadir</option>
             <option value="Izin">Izin</option>
@@ -45,7 +47,8 @@ const AddAttendance = ({ onAdd }) => {
             <option value="Alpa">Alpa</option>
           </select>
         </label>
-        <br />
+        <br/>
+        <br/>
         <button type="submit" className='btn btn-primary'>Tambah</button>
       </form>
     </div>

@@ -25,22 +25,22 @@ const EditAttendance = ({ attendance, onUpdate, onCancel }) => {
       <form onSubmit={handleSubmit}>
         <label>
           Nama:
-          <input type="text" value={nama} onChange={(e) => setNama(e.target.value)} />
+          <input className='form-control' type="text" value={nama} onChange={(e) => setNama(e.target.value)} />
         </label>
         <br />
         <label>
           Kelas:
-          <input type="text" value={kelas} onChange={(e) => setKelas(e.target.value)} />
+          <input className='form-control' type="text" value={kelas} onChange={(e) => setKelas(e.target.value)} />
         </label>
         <br />
         <label>
           Tanggal:
-          <input type="date" value={tanggal} onChange={(e) => setTanggal(e.target.value)} />
+          <input className='form-control' type="date" value={tanggal} onChange={(e) => setTanggal(e.target.value)} />
         </label>
         <br />
         <label>
           Status:
-          <select value={status} onChange={(e) => setStatus(e.target.value)}>
+          <select className='form-control' value={status} onChange={(e) => setStatus(e.target.value)}>
             <option value="">-- Pilih Status --</option>
             <option value="Hadir">Hadir</option>
             <option value="Izin">Izin</option>
@@ -49,8 +49,8 @@ const EditAttendance = ({ attendance, onUpdate, onCancel }) => {
           </select>
         </label>
         <br />
-        <button type="submit">Simpan</button>
-        <button type="button" onClick={onCancel}>Batal</button>
+        <button className='btn btn-success' type="submit">Simpan</button>&nbsp;
+        <button className='btn btn-danger' type="button" onClick={onCancel}>Batal</button>
       </form>
     </div>
   );

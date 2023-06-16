@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>React Uncover</title>
+</head>
+
+<body>
+    <h1>BelajarJavaScript</h1>
+    <script>
+        let data = {
+            "nama":
+                "kelas":
+            "tanggal": new Date("01 Nov 2021 9:30").getTime(),
+        }
+
+        let url = "https://latihan-f28f4-default-rtdb.firebaseio.com/";
+        url += "/transaction.json";
+        const myFetch = async () => {
+            try {
+                let response = await fetch(url, {
+                    method: "DELETE",
+                    body: JSON.stringify({ data })
+                })
+                alert("Databerhasildikirim");
+                if (!response.ok) {
+                    throw new Error(response.status);
+                }
+            }
+            catch (error) {
+                alert(`Terjadi gangguan dengan pesan:"${error}"`);
+            }
+        }
+        myFetch();
+    </script>
+</body>
+
+</html>

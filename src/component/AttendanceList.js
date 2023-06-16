@@ -1,18 +1,56 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import AddAttendance from './AddAttendance';
 import EditAttendance from './EditAttendance';
-
+const url = "https://latihan-f28f4-default-rtdb.firebaseio.com/absensi.json"
 const AttendanceList = () => {
   const [attendances, setAttendances] = useState([
-    { id: 1, nama: 'John Doe', kelas: 'XII IPA 1', tanggal: '2022-01-01', status: 'Hadir' },
-    { id: 2, nama: 'Jane Doe', kelas: 'XII IPA 2', tanggal: '2022-01-01', status: 'Izin' },
-    { id: 3, nama: 'Bob Smith', kelas: 'XII IPS 1', tanggal: '2022-01-02', status: 'Sakit' },
-    { id: 4, nama: 'Alice Smith', kelas: 'XII IPS 2', tanggal: '2022-01-02', status: 'Alpa' },
+    // { id: 1, nama: 'John', kelas: 'XII IPA 1', tanggal: '2022-01-01', status: 'Hadir' },
+    // { id: 2, nama: 'Janet', kelas: 'XII IPA 2', tanggal: '2022-01-01', status: 'Izin' },
+    // { id: 3, nama: 'Bobi', kelas: 'XII IPS 1', tanggal: '2022-01-02', status: 'Sakit' },
+    // { id: 4, nama: 'Alice', kelas: 'XII IPS 2', tanggal: '2022-01-02', status: 'Alpa' },
   ]);
   const [showAddForm, setShowAddForm] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [editAttendance, setEditAttendance] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
+
+  useEffect(() => {
+
+    const myFetch = async () => {
+      try {
+        let response = await fetch(url, {
+        })
+        // alert("data berhasil diambil");
+        if (!response.ok) {
+          throw new Error(response.status);
+        }
+        const dataResponse = await response.json();
+        // console.log(response.json());
+        const tampungData = [];
+        for (const vv in dataResponse) {
+          if (Object.hasOwnProperty.call(dataResponse, vv)) {
+            const i = dataResponse[vv];
+            // console.log(i.nama);
+            tampungData.push({
+              id : vv,
+              nama : i.nama,
+              kelas : i.kelas,
+              tanggal : i.tanggal,
+              status : dataResponse[vv].status
+            })
+          }
+        }
+
+        setAttendances(tampungData);
+        
+      }
+      catch (error) {
+        alert(`Terjadi gangguan dengan pesan:"${error}"`);
+      }
+    }
+    myFetch();
+
+  },[])
 
   const handleAdd = (attendance) => {
     const newAttendance = { id: Date.now(), ...attendance };
