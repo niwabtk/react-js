@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-
+import {database} from '../firebase'
+import { ref, push } from "firebase/database";
 const AddAttendance = ({ addAttendance }) => {
   const [nama, setNama] = useState('');
   const [kelas, setKelas] = useState('');
@@ -9,7 +10,22 @@ const AddAttendance = ({ addAttendance }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const newAttendance = { nama, kelas, tanggal, status };
-    addAttendance(newAttendance);
+    // addAttendance(newAttendance);
+    push(ref(database, 'latihan/'), {
+      nama,
+      kelas,
+      tanggal,
+      status,
+    })
+    .then(() => {
+      // Data saved successfully!
+      console.log('sukses')
+    })
+    .catch((error) => {
+      // The write failed...
+      console.log('error');
+    });
+    
 
 
     setNama('');

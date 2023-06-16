@@ -1,22 +1,42 @@
 import React, { useState, useEffect } from 'react';
-
+import { database } from '../firebase';
+import { ref,set } from "firebase/database";
+const url = "https://latihan-f28f4-default-rtdb.firebaseio.com/absensi.json"
 const EditAttendance = ({ attendance, onUpdate, onCancel }) => {
   const [nama, setNama] = useState('');
   const [kelas, setKelas] = useState('');
   const [tanggal, setTanggal] = useState('');
   const [status, setStatus] = useState('');
+  const [id, setId] = useState('');
 
   useEffect(() => {
     setNama(attendance.nama);
     setKelas(attendance.kelas);
     setTanggal(attendance.tanggal);
     setStatus(attendance.status);
+    setId(attendance.id);
   }, [attendance]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const updatedAttendance = { ...attendance, nama, kelas, tanggal, status };
-    onUpdate(updatedAttendance);
+    // const updatedAttendance = { ...attendance, nama, kelas, tanggal, status };
+    // onUpdate(updatedAttendance);
+    set(ref(database, 'latihan/' + id), {
+      nama,
+      kelas,
+      tanggal,
+      status
+    })
+      .then(() => {
+        // Data saved successfully!
+        alert('data sukses update')
+      })
+      .catch((error) => {
+        alert('data gagal update');
+        // The write failed...
+      });
+
+
   };
 
   return (

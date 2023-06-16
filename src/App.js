@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import AttendanceList from './component/AttendanceList';
 import AddAttendance from './component/AddAttendance';
 import EditAttendance from './component/EditAttendance';
-
 const url = "https://latihan-f28f4-default-rtdb.firebaseio.com/absensi.json"
 const App = () => {
   const [attendance, setAttendance] = useState([
@@ -15,41 +14,44 @@ const App = () => {
 
   useEffect(() => {
 
-    const myFetch = async () => {
-      try {
-        let response = await fetch(url, {
-        })
-        // alert("data berhasil diambil");
-        if (!response.ok) {
-          throw new Error(response.status);
-        }
-        const dataResponse = await response.json();
-        // console.log(response.json());
-        const tampungData = [];
-        for (const vv in dataResponse) {
-          if (Object.hasOwnProperty.call(dataResponse, vv)) {
-            const i = dataResponse[vv];
-            // console.log(i.nama);
-            tampungData.push({
-              id : vv,
-              nama : i.nama,
-              kelas : i.kelas,
-              tanggal : i.tanggal,
-              status : dataResponse[vv].status
-            })
-          }
-        }
+    // const myFetch = async () => {
+    //   try {
+    //     let response = await fetch(url, {
+    //     })
+    //     // alert("data berhasil diambil");
+    //     if (!response.ok) {
+    //       throw new Error(response.status);
+    //     }
+    //     const dataResponse = await response.json();
+    //     console.log(dataResponse);
+    //     const tampungData = [];
+    //     for (const vv in dataResponse) {
+    //       if (Object.hasOwnProperty.call(dataResponse, vv)) {
+    //         const i = dataResponse[vv];
+    //         // console.log(i.nama);
+    //         tampungData.push({
+    //           id : vv,
+    //           nama : i.nama,
+    //           kelas : i.kelas,
+    //           tanggal : i.tanggal,
+    //           status : dataResponse[vv].status
+    //         })
+    //       }
+    //     }
 
-        setAttendance(tampungData);
-        
-      }
-      catch (error) {
-        alert(`Terjadi gangguan dengan pesan:"${error}"`);
-      }
-    }
-    myFetch();
+    //     setAttendance(tampungData);
 
-  },[])
+    //   }
+    //   catch (error) {
+    //     alert(`Terjadi gangguan dengan pesan:"${error}"`);
+    //   }
+    // }
+    // myFetch();
+
+
+
+
+  }, [])
 
   const addAttendance = (newAttendance) => {
     const id = attendance.length + 1;
